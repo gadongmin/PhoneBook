@@ -113,7 +113,7 @@ public class PhoneBook {
 					System.out.println("<4. 검색>");
 					System.out.print("> 이름: ");
 					String searchkey = sc.nextLine();
-	
+					/*
 					for (int i = 0; i < personArray.size(); i++) {
 						Person searchName = personArray.get(i);
 	
@@ -122,6 +122,16 @@ public class PhoneBook {
 							searchName.showInfo();
 						}
 					}
+					*/
+					int index = 0;
+					for (Person searchName : personArray) {
+						if (searchName.getName().contains(searchkey)) {
+							System.out.print(index+1 + ". ");
+							searchName.showInfo();
+							index++;
+						}
+					}
+					
 					break;
 	
 				default:

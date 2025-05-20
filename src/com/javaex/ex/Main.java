@@ -40,6 +40,7 @@ public class Main {
 
 			PhoneList l = new PhoneList(name, phoneNum, cpNum); // 연락처 객체 생성
 			lArr.add(l); // 리스트에 추가
+			
 		}
 		br.close(); // 파일 닫기
 
