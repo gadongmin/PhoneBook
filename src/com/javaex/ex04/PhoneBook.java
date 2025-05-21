@@ -1,4 +1,4 @@
-package com.javaex.ex03;
+package com.javaex.ex04;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,37 +18,36 @@ public class PhoneBook {
 		System.out.println("*************************************************");
 
 		// 리스트
-		List<Person> personArray = new ArrayList<Person>();
+		List<Person> PersonArray = new ArrayList<Person>();
 		// 키보드
 		Scanner sc = new Scanner(System.in);
 
 		// 파일읽기
-		FileReader fr = new FileReader("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB3.txt");
+		FileReader fr = new FileReader("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB4.txt");
 		BufferedReader br = new BufferedReader(fr);
 
-		// 리스트 출력
+		// 주소록 출력
 		while (true) {
-			String line = br.readLine();
-			if (line == null) {
+			String flieRead = br.readLine();
+			if (flieRead == null) {
 				break;
 			}
-			String[] contactInfo = line.split(",");
-			String name = contactInfo[0];
-			String hp = contactInfo[1];
-			String cp = contactInfo[2];
+			String[] PersonInfo = flieRead.split(",");
+			String name = PersonInfo[0];
+			String hp = PersonInfo[1];
+			String cp = PersonInfo[2];
 
-			Person personList = new Person(name, hp, cp);
-			personArray.add(personList);
+			Person PersonSet = new Person(name, hp, cp);
+			PersonArray.add(PersonSet);
 		}
 		br.close();
 
 		while (true) {
-			// 메뉴반복
 			System.out.println("");
 			System.out.println("1. 리스트   2. 등록   3. 삭제   4. 검색   5. 종료");
 			System.out.println("-------------------------------------------------");
 			System.out.print("메뉴번호: ");
-			int menuNumber = sc.nextInt(); // 메뉴번호 입력
+			int menuNumber = sc.nextInt();
 
 			if (menuNumber == 5) {
 				System.out.println("*************************************************");
@@ -60,15 +59,16 @@ public class PhoneBook {
 			switch (menuNumber) {
 				case 1:
 					System.out.println("<1. 리스트>");
-					for (int i = 0; i < personArray.size(); i++) {
+					for (int i = 0; i < PersonArray.size(); i++) {
 						System.out.print((i + 1) + ". ");
-						personArray.get(i).showInfo();
+						PersonArray.get(i).showInfo();
 					}
 					break;
 	
 				case 2:
 					sc.nextLine();
 					System.out.println("<2. 등록>");
+					sc.nextLine();
 					System.out.print("> 이름: ");
 					String name = sc.nextLine();
 					System.out.print("> 휴대전화: ");
@@ -77,71 +77,66 @@ public class PhoneBook {
 					String cp = sc.nextLine();
 	
 					Person newPerson = new Person(name, hp, cp);
-					personArray.add(newPerson);
+					PersonArray.add(newPerson);
 	
-					// 파일저장
-					FileWriter fwAdd = new FileWriter("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB3.txt");
+					// 파일 저장
+					FileWriter fwAdd = new FileWriter("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB4.txt");
 					BufferedWriter bwAdd = new BufferedWriter(fwAdd);
-					for (Person newPer : personArray) {
-						bwAdd.write(newPer.getName() + "," + newPer.getHp() + "," + newPer.getCp());
+	
+					for (Person personAdd : PersonArray) {
+						bwAdd.write(personAdd.getName() + "," + personAdd.getHp() + "," + personAdd.getCp());
 						bwAdd.newLine();
 					}
-					System.out.println("[등록되었습니다.]");
 					bwAdd.close();
+					System.out.println("[등록되었습니다.]");
 					break;
 	
 				case 3:
 					sc.nextLine();
 					System.out.println("<3. 삭제>");
+					sc.nextLine();
 					System.out.print("> 번호: ");
-					int deleteIndex = sc.nextInt();
-					personArray.remove(deleteIndex - 1);
+					int deleteNumber = sc.nextInt();
 	
-					// 파일저장
-					FileWriter fwRe = new FileWriter("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB3.txt");
+					PersonArray.remove(deleteNumber);
+	
+					// 파일 저장
+					FileWriter fwRe = new FileWriter("C:\\javaStudy\\강의자료\\02.java_programming\\미니프로젝트\\PhoneDB4.txt");
 					BufferedWriter bwRe = new BufferedWriter(fwRe);
-					for (Person newPer : personArray) {
-						bwRe.write(newPer.getName() + "," + newPer.getHp() + "," + newPer.getCp());
+	
+					for (Person personRe : PersonArray) {
+						bwRe.write(personRe.getName() + "," + personRe.getHp() + "," + personRe.getCp());
 						bwRe.newLine();
 					}
-					System.out.println("[삭제되었습니다.]");
 					bwRe.close();
+					System.out.println("[삭제되었습니다.]");
 					break;
 	
 				case 4:
 					sc.nextLine();
 					System.out.println("<4. 검색>");
 					System.out.print("> 이름: ");
-					String searchkey = sc.nextLine();
-					/*
-					for (int i = 0; i < personArray.size(); i++) {
-						Person searchName = personArray.get(i);
+					String searchName = sc.nextLine();
 	
-						if (searchName.getName().contains(searchkey)) {
-							System.out.print((i + 1) + ". ");
-							searchName.showInfo();
-						}
-					}
-					*/
 					int index = 0;
-					for (Person searchName : personArray) {
-						
-						if (searchName.getName().contains(searchkey)) {
-							System.out.print(index+1 + ". ");
-							searchName.showInfo();
+					for (Person searchPerson : PersonArray) {
+	
+						if (searchPerson.getName().contains(searchName)) {
+							System.out.println((index + 1) + ". ");
+							searchPerson.showInfo();
 							index++;
 						}
 					}
-					
 					break;
 	
 				default:
 					System.out.println("[다시 입력해 주세요.]");
-					
+	
 					break;
-			}
-		}
 
+			}
+
+		}
 		sc.close();
 	}
 
