@@ -13,7 +13,7 @@ public class PhoneBook {
 
 	public static void main(String[] args) throws IOException {
 		// 프로그램 시작 안내 메세지 출력
-		System.out.println("*************************************************");
+		System.out.println("***********************************##*************");
 		System.out.println("*             전화번호 관리 프로그램            *");
 		System.out.println("*************************************************");
 
